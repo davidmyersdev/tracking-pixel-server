@@ -6,15 +6,21 @@
   "author": "David R. Myers <hello@davidmyers.dev>",
   "license": "MIT",
   "scripts": {
-    "dev": "node --experimental-strip-types ./src/index.ts"
+    "dev": "node --experimental-strip-types --import=hot-hook/register ./src/index.ts"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
+    "hot-hook": "^0.4.0",
     "typescript": "^5.9.3",
     "vite": "^7.2.6"
   },
   "dependencies": {
     "h3": "2.0.1-rc.5",
     "nanoid": "^5.1.6"
+  },
+  "hotHook": {
+    "boundaries": [
+      "./src/**/*.ts"
+    ]
   }
 }
