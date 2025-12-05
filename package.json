@@ -1,0 +1,11 @@
+{
+  "name": "tracking-pixel-server",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "A very basic tracking pixel server",
+  "author": "David R. Myers <hello@davidmyers.dev>",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
