@@ -1,7 +1,7 @@
 {
   "name": "tracking-pixel-server",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A very basic tracking pixel server",
   "author": "David R. Myers <hello@davidmyers.dev>",
   "license": "MIT",
