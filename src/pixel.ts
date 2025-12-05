@@ -13,18 +13,23 @@ const pixel = Buffer.from(
   'base64',
 )
 
+const getTrackingId = (event: H3Event) => {
+  const existingId = getCookie(event, 'tracking_id')
+  const isNewVisitor = !existingId
+
+  return {
+    isNewVisitor,
+    trackingId: existingId ?? nanoid(),
+  }
+}
+
 export const handler = async (event: H3Event) => {
   const query = getQuery(event)
+  const { isNewVisitor, trackingId } = getTrackingId(event)
 
-  // Check for existing cookie
-  let tracking_id = getCookie(event, 'tracking_id')
-  const isNewVisitor = !tracking_id
-
-  if (!tracking_id) {
-    tracking_id = nanoid()
-
+  if (isNewVisitor) {
     // Set tracking cookie
-    setCookie(event, 'tracking_id', tracking_id, {
+    setCookie(event, 'tracking_id', trackingId, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 365, // 1 year
       path: '/',
@@ -36,11 +41,11 @@ export const handler = async (event: H3Event) => {
   // Log hit
   console.dir({
     ip: event.req.ip,
-    isNewVisitor,
+    is_new_visitor: isNewVisitor,
     query,
     timestamp: new Date().toISOString(),
+    tracking_id: trackingId,
     user_agent: event.req.headers.get('user-agent'),
-    tracking_id,
   }, { depth: null })
 
   event.res.headers.append('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
